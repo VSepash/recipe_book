@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:go_router/go_router.dart';
 import 'package:recipbook/core/constants/text.dart';
+import 'package:recipbook/feature/home/repository/database.dart';
 import 'package:recipbook/feature/recipe_detail/recipe_detail.dart';
-import 'package:recipbook/feature/service/database.dart';
+
 
 class RecipeList extends StatefulWidget {
   @override

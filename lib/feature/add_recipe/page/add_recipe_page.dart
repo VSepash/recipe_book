@@ -17,6 +17,7 @@ class _AddRecipeState extends State<AddRecipe> {
   final List<String> recipeCategories = ['Суп', 'Каша', 'Горячее'];
   String? selectedCategory;
   String? selectedImageUrl;
+  
 
   final imageUtil = ImagePickerUtil();
 
@@ -64,6 +65,15 @@ class _AddRecipeState extends State<AddRecipe> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+        title: const Text("Добавь рецепт"),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context); // Вернуться на предыдущую страницу
+          },
+        ),
+      ),     
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),
         child: Column(
