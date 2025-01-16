@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "231358910287",
+    "project_id": "bookcoock-ab8be",
+    "storage_bucket": "bookcoock-ab8be.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:231358910287:android:73db85e8e2b3291109bf3a",
+        "android_client_info": {
+          "package_name": "com.example.recipbook"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDF2b5Ht3MiXLYxSTlyI2Mz_hKcohQqTug"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
