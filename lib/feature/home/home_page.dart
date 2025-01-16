@@ -51,13 +51,13 @@ class _HomePageState extends State<HomePage> {
       body: Stack(
         children: [
           Container(
-            margin: EdgeInsets.only(top: 50.0, left: 40.0),
+            margin: EdgeInsets.only(top: 20.0, left: 40.0), //  верхний отступ
             child: Column(
               children: [
                 Header(),
-                SizedBox(height: 20.0),
+                SizedBox(height: 10.0), // отступ между заголовком и категориями
                 CategoryList(),
-                SizedBox(height: 20.0),
+                SizedBox(height: 10.0), //  отступ между категориями и рецептом
                 Expanded(child: RecipeList()),
               ],
             ),
