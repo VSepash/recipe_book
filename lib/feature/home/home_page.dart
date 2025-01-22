@@ -41,6 +41,21 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(Icons.exit_to_app, color: Colors.black),
+          onPressed: () {
+            context.push('/signoutscreen');
+          },
+        ),
+        title: Text(
+          "Найди любимое блюдо",
+          style: TextWidget.BoldFeildTextStyle(),
+        ),
+        centerTitle: true,
+      ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.black,
         onPressed: () {
@@ -51,13 +66,13 @@ class _HomePageState extends State<HomePage> {
       body: Stack(
         children: [
           Container(
-            margin: EdgeInsets.only(top: 20.0, left: 40.0), //  верхний отступ
+            margin: EdgeInsets.only(top: 20.0, left: 40.0), // верхний отступ
             child: Column(
               children: [
                 Header(),
                 SizedBox(height: 10.0), // отступ между заголовком и категориями
                 CategoryList(),
-                SizedBox(height: 10.0), //  отступ между категориями и рецептом
+                SizedBox(height: 10.0), // отступ между категориями и рецептом
                 Expanded(child: RecipeList()),
               ],
             ),
