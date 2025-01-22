@@ -1,4 +1,6 @@
+
 import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -32,7 +34,7 @@ class ImagePickerUtil {
         textColor: Colors.white,
       );
     }
-    return defaultImageUrl; // Возвращаем дефолтное изображение, если выбор не удался
+    return defaultImageUrl; // Возвращаем дефолтное изображение, если выбор не удался или ошибка
   }
 
   Future<String> uploadImageToSupabase(File imageFile) async {

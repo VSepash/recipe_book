@@ -60,7 +60,7 @@ class _RecipeListState extends State<RecipeList> {
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(10),
-                      child: Image.network(
+                      child: Image.asset(
                         ds["Image"],
                         height: 300,
                         width: 250,

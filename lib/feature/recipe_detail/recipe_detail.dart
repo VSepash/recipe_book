@@ -23,8 +23,8 @@ class RecipeDetali extends StatelessWidget {
           children: [
             Stack(
               children: [
-                Image.network(
-                  image,
+                Image.asset(
+                  "images/boy.jpg",
                   width: MediaQuery.of(context).size.width,
                   height: 400,
                   fit: BoxFit.cover,

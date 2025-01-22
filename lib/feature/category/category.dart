@@ -61,8 +61,8 @@ class _CategoryRecipeState extends State<CategoryRecipe> {
                       children: [
                         ClipRRect(
                           borderRadius: BorderRadius.circular(10),
-                          child: Image.network(
-                            ds["Image"],
+                          child: Image.asset(
+                            "images/boy.jpg",
                             height: 200,
                             fit: BoxFit.cover,
                           ),
