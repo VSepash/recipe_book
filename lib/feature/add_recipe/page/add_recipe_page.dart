@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart'; // Для получения uid
 import 'package:fluttertoast/fluttertoast.dart';
 import 'image_picker_util.dart';
 
@@ -17,11 +18,21 @@ class _AddRecipeState extends State<AddRecipe> {
   final List<String> recipeCategories = ['Суп', 'Каша', 'Горячее'];
   String? selectedCategory;
   String? selectedImageUrl;
-  
 
   final imageUtil = ImagePickerUtil();
 
   Future<void> uploadItem() async {
+    final user = FirebaseAuth.instance.currentUser;
+
+    if (user == null) {
+      Fluttertoast.showToast(
+        msg: "Вы должны быть авторизованы для добавления рецепта.",
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+      );
+      return;
+    }
+
     if (nameController.text.isNotEmpty &&
         detailController.text.isNotEmpty &&
         selectedCategory != null &&
@@ -31,6 +42,8 @@ class _AddRecipeState extends State<AddRecipe> {
         "Detail": detailController.text,
         "Image": selectedImageUrl,
         "Category": selectedCategory,
+        "uid": user.uid, // Добавляем идентификатор пользователя
+        "createdAt": FieldValue.serverTimestamp(), // Добавляем дату создания
       };
 
       try {
@@ -65,7 +78,7 @@ class _AddRecipeState extends State<AddRecipe> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
+      appBar: AppBar(
         title: const Text("Добавь рецепт"),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
@@ -73,7 +86,7 @@ class _AddRecipeState extends State<AddRecipe> {
             Navigator.pop(context); // Вернуться на предыдущую страницу
           },
         ),
-      ),     
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),
         child: Column(

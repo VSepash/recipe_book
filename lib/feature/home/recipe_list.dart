@@ -5,7 +5,6 @@ import 'package:recipbook/core/constants/text.dart';
 import 'package:recipbook/feature/home/repository/database.dart';
 import 'package:recipbook/feature/recipe_detail/recipe_detail.dart';
 
-
 class RecipeList extends StatefulWidget {
   @override
   State<RecipeList> createState() => _RecipeListState();
@@ -36,10 +35,15 @@ class _RecipeListState extends State<RecipeList> {
         if (snapshot.data.docs.isEmpty) {
           return const Center(child: Text("Рецепты не найдены"));
         }
-        return ListView.builder(
-          padding: EdgeInsets.zero,
+        return GridView.builder(
+          padding: const EdgeInsets.all(10.0),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2, // Количество элементов в ряду
+            crossAxisSpacing: 10.0, // Расстояние между столбцами
+            mainAxisSpacing: 10.0, // Расстояние между строками
+            childAspectRatio: 0.8, // Соотношение сторон для элементов
+          ),
           itemCount: snapshot.data.docs.length,
-          scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
             DocumentSnapshot ds = snapshot.data.docs[index];
             return GestureDetector(
@@ -54,23 +58,42 @@ class _RecipeListState extends State<RecipeList> {
                 );
               },
               child: Container(
-                margin: EdgeInsets.only(right: 20.0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      blurRadius: 5.0,
+                      offset: Offset(0, 2),
+                    ),
+                  ],
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    // Фиксированная область для изображения
                     ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Image.asset(
-                        ds["Image"],
-                        height: 300,
-                        width: 250,
-                        fit: BoxFit.cover,
+                      borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
+                      child: Container(
+                        height: 150, // Фиксированная высота
+                        width: double.infinity,
+                        color: Colors.grey[200], // Цвет фона на случай отсутствия изображения
+                        child: Image.asset(
+                          ds["Image"],
+                          fit: BoxFit.cover, // Изображение занимает всю область
+                        ),
                       ),
                     ),
-                    SizedBox(height: 10.0),
-                    Text(
-                      ds["Name"],
-                      style: TextWidget.BoldFeildTextStyle(),
+                    const SizedBox(height: 10.0),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Text(
+                        ds["Name"],
+                        style: TextWidget.BoldFeildTextStyle(),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                   ],
                 ),

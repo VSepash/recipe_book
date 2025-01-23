@@ -13,12 +13,15 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  WidgetsFlutterBinding.ensureInitialized();
 
   // Инициализация Supabase
   await Supabase.initialize(
     url: 'https://btkisrsozilabmvyruys.supabase.co', //  Supabase URL
-    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0a2lzcnNvemlsYWJtdnlydXlzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzY5NzY3NTAsImV4cCI6MjA1MjU1Mjc1MH0.n-llE0OD5WT5T35CDkSHOnf3hRAjex8zyuFrLG8c3V4', // Ваш Supabase anon key
+    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0a2lzcnNvemlsYWJtdnlydXlzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzY5NzY3NTAsImV4cCI6MjA1MjU1Mjc1MH0.n-llE0OD5WT5T35CDkSHOnf3hRAjex8zyuFrLG8c3V4',               // Ваш Supabase anon key
   );
+
+
 
   runApp(MyApp());
 }

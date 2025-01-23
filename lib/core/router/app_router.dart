@@ -6,20 +6,21 @@ import 'package:recipbook/feature/auth/pages/sign_in_page.dart';
 import 'package:recipbook/feature/auth/pages/sign_out_page.dart';
 import 'package:recipbook/feature/category/category.dart';
 import 'package:recipbook/feature/home/home_page.dart';
+import 'package:recipbook/feature/my_recipe/my_recipe.dart';
 import 'package:recipbook/feature/recipe_detail/recipe_detail.dart';
 
 abstract class AppRouter {
-  static final GoRouter goRouter = GoRouter(initialLocation: SigninScreen.path, routes: [
-    GoRoute(
-      path: SigninScreen.path,
-      builder: (context, state) => const SigninScreen(),
-    ),
-    GoRoute(
-      path: HomePage.path,
-      builder: (context, state) => const HomePage(),
-    ),
-      
-      // Category Recipes Page
+  static final GoRouter goRouter = GoRouter(
+    initialLocation: SigninScreen.path, 
+    routes: [
+      GoRoute(
+        path: SigninScreen.path,
+        builder: (context, state) => const SigninScreen(),
+      ),
+      GoRoute(
+        path: HomePage.path,
+        builder: (context, state) => const HomePage(),
+      ),
       GoRoute(
         path: CategoryRecipe.path,
         builder: (context, state) {
@@ -27,8 +28,6 @@ abstract class AppRouter {
           return CategoryRecipe(category: category);
         },
       ),
-
-      // Recipe Detail Page
       GoRoute(
         path: RecipeDetali.path,
         builder: (context, state) {
@@ -51,7 +50,13 @@ abstract class AppRouter {
       GoRoute(
         path: SignupScreen.path,
         builder: (context, state) => const SignupScreen(),
-    )
-  ]);
+      ),
+      //
+      GoRoute(
+        path: MyRecipesPage.path,
+        builder: (context, state) => MyRecipesPage(),
+      ),
 
+    ],
+  );
 }

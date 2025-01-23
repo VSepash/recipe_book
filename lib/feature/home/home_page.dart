@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:recipbook/core/constants/text.dart';
 import 'package:recipbook/feature/home/category_list.dart';
 import 'package:recipbook/feature/home/recipe_list.dart';
+import 'package:firebase_auth/firebase_auth.dart'; // Для получения текущего пользователя
 
 class HomePage extends StatefulWidget {
   static const path = '/home';
@@ -14,6 +15,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool isLoading = false;
+  User? currentUser;
 
   Future<void> loadData() async {
     setState(() {
@@ -21,8 +23,8 @@ class _HomePageState extends State<HomePage> {
     });
 
     try {
-      // Имитация загрузки данных
-      await Future.delayed(const Duration(seconds: 2));
+      currentUser = FirebaseAuth.instance.currentUser; // Получаем текущего пользователя
+      await Future.delayed(const Duration(seconds: 2)); // Имитация загрузки данных
     } catch (e) {
       print("Ошибка загрузки данных: $e");
     } finally {
@@ -47,19 +49,23 @@ class _HomePageState extends State<HomePage> {
         leading: IconButton(
           icon: Icon(Icons.exit_to_app, color: Colors.black),
           onPressed: () {
-            context.push('/signoutscreen');
+            context.push('/signoutscreen'); // Переход на экран выхода
           },
         ),
-        title: Text(
-          "Найди любимое блюдо",
-          style: TextWidget.BoldFeildTextStyle(),
-        ),
         centerTitle: true,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.person, color: Colors.black),
+            onPressed: () {
+              context.push('/myRecipes'); // Переход на страницу "Мои рецепты"
+            },
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.black,
         onPressed: () {
-          context.push('/addRecipe');
+          context.push('/addRecipe'); // Переход на экран добавления рецепта
         },
         child: Icon(Icons.add, color: Colors.white),
       ),
@@ -69,11 +75,11 @@ class _HomePageState extends State<HomePage> {
             margin: EdgeInsets.only(top: 20.0, left: 40.0), // верхний отступ
             child: Column(
               children: [
-                Header(),
+                Header(), // Заголовок
                 SizedBox(height: 10.0), // отступ между заголовком и категориями
-                CategoryList(),
-                SizedBox(height: 10.0), // отступ между категориями и рецептом
-                Expanded(child: RecipeList()),
+                CategoryList(), // Список категорий
+                SizedBox(height: 6.0), // отступ между категориями и списком рецептов
+                Expanded(child: RecipeList()), // Список всех рецептов
               ],
             ),
           ),
@@ -91,6 +97,8 @@ class _HomePageState extends State<HomePage> {
 }
 
 class Header extends StatelessWidget {
+  const Header({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -101,7 +109,7 @@ class Header extends StatelessWidget {
             "Найди любимое блюдо",
             style: TextWidget.BoldFeildTextStyle(),
           ),
-          Spacer(),
+          const Spacer(),
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: Image.asset(
